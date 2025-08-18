@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { createRoot } from "react-dom/client"
 
 import "./styles.css"
@@ -40,6 +40,21 @@ class App1 extends React.Component {
 }
 
 // Opción 2 - Componente Fucional
+// Define una etiqueta (componente) nuevo que puede ser consumido <App2 />
+function App2(props) {
+
+    const [visitas, setVisitas] = useState(123) // Hooks
+
+    return (
+        <div>
+            <h1>Bienvenido</h1>
+            <img src="https://laeconomia.com.mx/wp-content/uploads/banco-de-mexico.gif.webp" />
+            <button>Acceder</button>
+            <span>Tu eres el visitante ({visitas})</span>
+        </div>
+    )
+
+}
 
 // Montamos el nodo en el root
-root.render(<App1 />)
+root.render(<App2 />)

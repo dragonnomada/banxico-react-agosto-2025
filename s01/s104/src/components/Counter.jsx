@@ -1,5 +1,10 @@
 import React from "react"
 
+// this.state -> diccionario de valores retenidos
+// this.setState -> cambiamos parcialmente el diccionario
+
+// En los componentes funcionales: const [state, setState] = useState({ ... })
+
 export class Counter extends React.Component {
 
     // props -> { <key>: <value> }
@@ -30,11 +35,60 @@ export class Counter extends React.Component {
 
     render() {
 
-        if (this.state.error) return <p style={{color: "red"}}>{this.state.error}</p>
+        if (this.state.error) return <p style={{ color: "red" }}>{this.state.error}</p>
+
+        // if (this.state.count >= 110) return <h1>🎉 Felicidades, llegaste al 110</h1>
+        if (this.state.count >= 110) return null
 
         return (
-            <div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
                 <span>Count: {this.state.count}</span>
+                <div style={{ display: "flex", gap: "1rem" }}>
+                    <button
+                        onClick={event => {
+                            if (event.shiftKey) {
+                                if (this.state.count <= 100) {
+                                    this.setState({
+                                        error: "El contado no podía ser menor a 100"
+                                    })
+                                    return
+                                }
+
+                                this.setState({
+                                    count: this.state.count - 1
+                                })
+                            } else {
+                                this.setState({
+                                    count: this.state.count + 1
+                                })
+                            }
+                        }}
+                    >
+                        Increment
+                    </button>
+                    <button
+                        onClick={event => {
+                            if (event.shiftKey) {
+                                this.setState({
+                                    count: this.state.count + 1
+                                })
+                            } else {
+                                if (this.state.count <= 100) {
+                                    this.setState({
+                                        error: "El contado no podía ser menor a 100"
+                                    })
+                                    return
+                                }
+
+                                this.setState({
+                                    count: this.state.count - 1
+                                })
+                            }
+                        }}
+                    >
+                        Decrement
+                    </button>
+                </div>
             </div>
         )
 

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { FormLoginA } from "./FormLoginA"
 import { SplitLayout } from "./SplitLayout"
+import { Welcome } from "./Welcome"
 
 // Responsabilidad:
 // Permitirle el inicio de sesión a usuarios desconocidos
@@ -11,24 +12,7 @@ export function LoginA({
     const [error, setError] = useState(null)
 
     const left = (
-        <div
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                overflow: "hidden"
-            }}
-        >
-            <img
-                width={"100%"}
-                height={"100%"}
-                style={{
-                    objectFit: "cover",
-                    filter: "grayscale(80%)",
-                    opacity: "0.5",
-                }}
-                src="https://transparencia.banxico.org.mx/dyn/multimedia/bannerT.jpg"
-            />
-        </div>
+        <Welcome />
     )
 
     const right = (

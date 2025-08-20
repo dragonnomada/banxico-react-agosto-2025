@@ -1,62 +1,66 @@
-const modelo = {
+// const modelo = {
 
-    title: "Datos generales",
-    flow: "vertical",
-    controls: [
-        {
-            field: "nombre",
-            label: "Nombre",
-            type: "text",
-            options: {
-                placeholder: "Ej. Alicia Wong"
-            }
-        },
-        {
-            field: "edad",
-            label: "Edad",
-            type: "number",
-            options: {
-                placeholder: "Ej. 23 años"
-            }
-        },
-        {
-            field: "frase",
-            label: "Contraseña",
-            type: "password",
-            options: {
-                placeholder: "Ej. secreto"
-            }
-        },
-        {
-            field: "puesto",
-            label: "Puesto",
-            type: "select",
-            options: {
-                items: [
-                    {
-                        id: "dev",
-                        label: "Recursos Humanos"
-                    },
-                    {
-                        id: "rh",
-                        label: "Recursos Humanos"
-                    },
-                    {
-                        id: "bi",
-                        label: "Análisis de Datos"
-                    },
-                    {
-                        id: "gg",
-                        label: "Generente General"
-                    },
-                ]
-            }
-        },
-    ]
+//     title: "Datos generales",
+//     flow: "vertical",
+//     controls: [
+//         {
+//             field: "nombre",
+//             label: "Nombre",
+//             type: "text",
+//             options: {
+//                 placeholder: "Ej. Alicia Wong"
+//             }
+//         },
+//         {
+//             field: "edad",
+//             label: "Edad",
+//             type: "number",
+//             options: {
+//                 placeholder: "Ej. 23 años"
+//             }
+//         },
+//         {
+//             field: "frase",
+//             label: "Contraseña",
+//             type: "password",
+//             options: {
+//                 placeholder: "Ej. secreto"
+//             }
+//         },
+//         {
+//             field: "puesto",
+//             label: "Puesto",
+//             type: "select",
+//             options: {
+//                 items: [
+//                     {
+//                         id: "dev",
+//                         label: "Recursos Humanos"
+//                     },
+//                     {
+//                         id: "rh",
+//                         label: "Recursos Humanos"
+//                     },
+//                     {
+//                         id: "bi",
+//                         label: "Análisis de Datos"
+//                     },
+//                     {
+//                         id: "gg",
+//                         label: "Generente General"
+//                     },
+//                 ]
+//             }
+//         },
+//     ]
 
-}
+// }
 
-export function FormularioGrupo() {
+export function FormularioGrupo({
+    title,
+    flow,
+    controls
+}) {
 
     return (
         <div
@@ -73,12 +77,12 @@ export function FormularioGrupo() {
                         // fontStyle: "italic"
                     }}
                 >
-                    {modelo.title}
+                    {title}
                 </span>
             </div>
             <div
                 style={(
-                    modelo.flow === "horizontal" ? ({
+                    flow === "horizontal" ? ({
                         display: "flex",
                         flexDirection: "row",
                         gap: "0.5rem"
@@ -90,14 +94,14 @@ export function FormularioGrupo() {
                 )}
             >
                 {
-                    modelo.controls.map((control, index) => {
+                    (controls || []).map((control, index) => {
 
                         const createControl = () => {
                             if (control.type === "text") {
                                 return (
                                     <input
                                         type="text"
-                                        placeholder={control.options.placeholder}
+                                        placeholder={control.options?.placeholder}
                                     />
                                 )
                             }
@@ -105,7 +109,7 @@ export function FormularioGrupo() {
                                 return (
                                     <input
                                         type="number"
-                                        placeholder={control.options.placeholder}
+                                        placeholder={control.options?.placeholder}
                                     />
                                 )
                             }
@@ -113,7 +117,7 @@ export function FormularioGrupo() {
                                 return (
                                     <input
                                         type="password"
-                                        placeholder={control.options.placeholder}
+                                        placeholder={control.options?.placeholder}
                                     />
                                 )
                             }
@@ -140,7 +144,14 @@ export function FormularioGrupo() {
                         return (
                             <div
                                 key={control.field}
+                                style={{
+                                    flexGrow: 1,
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "0.3rem"
+                                }}
                             >
+                                <label htmlFor={control.field}>{control.label}</label>
                                 {createControl()}
                             </div>
                         )

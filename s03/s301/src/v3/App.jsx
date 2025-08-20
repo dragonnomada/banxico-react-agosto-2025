@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { FormularioGrupo } from "../components/FormularioGrupo";
 
 export default function App() {
+
+    const [datos, setDatos] = useState({})
 
     return (
         <div
@@ -12,6 +15,7 @@ export default function App() {
             }}
         >
             <h1>Registro del empleado</h1>
+            <pre><code>{JSON.stringify(datos, null, 2)}</code></pre>
             <FormularioGrupo 
                 title="Datos generales"
                 flow="horizontal"
@@ -20,9 +24,19 @@ export default function App() {
                         field: "nombre",
                         type: "text",
                         label: "Nombre",
-                        // options: {
-                        //     placeholder: "Ej. Alicia Ruby"
-                        // }
+                        options: {
+                            placeholder: "Ej. Alicia Ruby"
+                        },
+                        getValue(field) {
+                            return datos[field] || ""
+                        },
+                        updateValue(field, value) {
+                            console.log("El control", field, value)
+                            setDatos({
+                                ...datos,
+                                [field]: value
+                            })
+                        }
                     },
                     {
                         field: "apellidoPaterno",
@@ -30,6 +44,16 @@ export default function App() {
                         label: "Apellido Paterno",
                         options: {
                             placeholder: "Ej. Wong"
+                        },
+                        getValue(field) {
+                            return datos[field]
+                        },
+                        updateValue(field, value) {
+                            console.log("El control", field, value)
+                            setDatos({
+                                ...datos,
+                                [field]: value
+                            })
                         }
                     },
                     {
@@ -38,6 +62,16 @@ export default function App() {
                         label: "Apellido Materno",
                         options: {
                             placeholder: "Ej. Díaz"
+                        },
+                        getValue(field) {
+                            return datos[field]
+                        },
+                        updateValue(field, value) {
+                            console.log("El control", field, value)
+                            setDatos({
+                                ...datos,
+                                [field]: value
+                            })
                         }
                     },
                 ]}

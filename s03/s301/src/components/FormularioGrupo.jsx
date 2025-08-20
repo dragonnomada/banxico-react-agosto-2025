@@ -1,5 +1,6 @@
-// const modelo = {
+import { useState } from "react"
 
+// const modelo = {
 //     title: "Datos generales",
 //     flow: "vertical",
 //     controls: [
@@ -56,12 +57,57 @@
 
 // }
 
-export const createControl = control => {
+// Typescript
+/*
+
+type ControlItem = {
+
+    id: string
+    label: string
+
+}
+
+type ControlOptions = {
+
+    placeholder?: string
+    item: ControlItem[]
+
+}
+
+type ControlSpec = {
+
+    field: string
+    type: "text" | "password" | "select" | "number"
+    label?: string
+    options?: ControlOptions
+
+    getValue?: (field: string) => void
+    updateValue?: (field: string, value: any) => void
+
+}
+
+type ControlModel = {
+
+    title?: string
+    flow?: "vertical" | "horizontal"
+    controls: ControlSpec
+
+}
+
+*/
+
+// Responsabilidad:
+// 1. Construir el componente según la especificación del tipo
+export const createControl = (control) => {
     if (control.type === "text") {
         return (
             <input
                 type="text"
                 placeholder={control.options?.placeholder}
+                value={control.getValue ? control.getValue(control.field) : ""}
+                onChange={event => {
+                    if (control.updateValue) control.updateValue(control.field, event.target.value)
+                }}
             />
         )
     }
@@ -70,6 +116,10 @@ export const createControl = control => {
             <input
                 type="number"
                 placeholder={control.options?.placeholder}
+                value={control.getValue ? control.getValue(control.field) : ""}
+                onChange={event => {
+                    if (control.updateValue) control.updateValue(control.field, event.target.value)
+                }}
             />
         )
     }
@@ -78,12 +128,21 @@ export const createControl = control => {
             <input
                 type="password"
                 placeholder={control.options?.placeholder}
+                value={control.getValue ? control.getValue(control.field) : ""}
+                onChange={event => {
+                    if (control.updateValue) control.updateValue(control.field, event.target.value)
+                }}
             />
         )
     }
     if (control.type === "select") {
         return (
-            <select>
+            <select
+                value={control.getValue ? control.getValue(control.field) : undefined}
+                onChange={event => {
+                    if (control.updateValue) control.updateValue(control.field, event.target.value)
+                }}
+            >
                 {
                     control.options.items.map(item => {
                         return (
@@ -107,6 +166,9 @@ export const createControl = control => {
     )
 }
 
+// Responsabilidad:
+// 1. Recibir un grupo de controles y mostrarlos (según su tipo)
+// 2. Retener su estado y notificar los cambios
 export function FormularioGrupo({
     title,
     flow,

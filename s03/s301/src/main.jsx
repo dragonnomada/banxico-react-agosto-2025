@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client"
-import App from "./v1/App"
+import App from "./v2/App"
 
 const root = createRoot(
     document.getElementById("root")

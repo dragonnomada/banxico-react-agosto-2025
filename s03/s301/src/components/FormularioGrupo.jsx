@@ -56,6 +56,57 @@
 
 // }
 
+export const createControl = control => {
+    if (control.type === "text") {
+        return (
+            <input
+                type="text"
+                placeholder={control.options?.placeholder}
+            />
+        )
+    }
+    if (control.type === "number") {
+        return (
+            <input
+                type="number"
+                placeholder={control.options?.placeholder}
+            />
+        )
+    }
+    if (control.type === "password") {
+        return (
+            <input
+                type="password"
+                placeholder={control.options?.placeholder}
+            />
+        )
+    }
+    if (control.type === "select") {
+        return (
+            <select>
+                {
+                    control.options.items.map(item => {
+                        return (
+                            <option key={item.id} value={item.id}>
+                                {item.label}
+                            </option>
+                        )
+                    })
+                }
+            </select>
+        )
+    }
+    console.error(`[${new Date().toLocaleString()}] Control type is not recognized (${control.type})`, [
+        "text",
+        "password",
+        "number",
+        "select"
+    ], control)
+    return (
+        <span style={{ color: "red" }}>Error: Control type is not recognized {control.type}</span>
+    )
+}
+
 export function FormularioGrupo({
     title,
     flow,
@@ -72,7 +123,7 @@ export function FormularioGrupo({
         >
             <div>
                 <span
-                    style={{ 
+                    style={{
                         color: "#555",
                         // fontStyle: "italic"
                     }}
@@ -94,52 +145,9 @@ export function FormularioGrupo({
                 )}
             >
                 {
-                    (controls || []).map((control, index) => {
-
-                        const createControl = () => {
-                            if (control.type === "text") {
-                                return (
-                                    <input
-                                        type="text"
-                                        placeholder={control.options?.placeholder}
-                                    />
-                                )
-                            }
-                            if (control.type === "number") {
-                                return (
-                                    <input
-                                        type="number"
-                                        placeholder={control.options?.placeholder}
-                                    />
-                                )
-                            }
-                            if (control.type === "password") {
-                                return (
-                                    <input
-                                        type="password"
-                                        placeholder={control.options?.placeholder}
-                                    />
-                                )
-                            }
-                            if (control.type === "select") {
-                                return (
-                                    <select>
-                                        {
-                                            control.options.items.map(item => {
-                                                return (
-                                                    <option key={item.id} value={item.id}>
-                                                        {item.label}
-                                                    </option>
-                                                )
-                                            })
-                                        }
-                                    </select>
-                                )
-                            }
-                            return (
-                                <span style={{ color: "red" }}>Error: Tipo no válido {control.type}</span>
-                            )
-                        }
+                    (controls || []).map(control => {
+                        // controls -> lista de objetos
+                        // control -> el objeto que especifica qué campo devolver
 
                         return (
                             <div
@@ -152,7 +160,7 @@ export function FormularioGrupo({
                                 }}
                             >
                                 <label htmlFor={control.field}>{control.label}</label>
-                                {createControl()}
+                                {createControl(control)}
                             </div>
                         )
                     })

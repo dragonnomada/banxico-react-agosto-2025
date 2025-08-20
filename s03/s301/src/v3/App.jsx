@@ -13,15 +13,16 @@ export default function App() {
         >
             <h1>Registro del empleado</h1>
             <FormularioGrupo 
+                title="Datos generales"
                 flow="horizontal"
                 controls={[
                     {
                         field: "nombre",
                         type: "text",
                         label: "Nombre",
-                        options: {
-                            placeholder: "Ej. Alicia Ruby"
-                        }
+                        // options: {
+                        //     placeholder: "Ej. Alicia Ruby"
+                        // }
                     },
                     {
                         field: "apellidoPaterno",
@@ -42,6 +43,7 @@ export default function App() {
                 ]}
             />
             <FormularioGrupo 
+                title="Edad e ingreso"
                 flow="horizontal"
                 controls={[
                     {
@@ -63,6 +65,7 @@ export default function App() {
                 ]}
             />
             <FormularioGrupo
+                title="Datos adicionales"
                 controls={[
                     {
                         field: "puesto",

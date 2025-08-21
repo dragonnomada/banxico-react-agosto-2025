@@ -4,12 +4,15 @@ import { useLocation, useNavigate, useNavigation, useRouteLoaderData } from "rea
 
 export default function HomePage() {
 
-    const navigation = useNavigation()
+    const location = useLocation()
 
-    const [token, setToken] = useState("abc123")
+    const [token, setToken] = useState(null)
 
     useEffect(() => {
-        console.log(navigation.json)
+        console.log(location.state)
+        if (location.state.token) {
+            setToken(location.state.token)
+        }
     }, [])
 
     if (!token) return (

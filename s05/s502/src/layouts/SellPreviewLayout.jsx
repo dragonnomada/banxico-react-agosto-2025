@@ -1,7 +1,9 @@
+import ListProductTotal from "../components/ListProductTotal"
+
 export default function SellPreviewLayout() {
 
     return (
-        <span>preview</span>
+        <ListProductTotal />
     )
 
 }

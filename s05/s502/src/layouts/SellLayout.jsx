@@ -1,7 +1,10 @@
 import ProductLayout from "./ProductLayout";
 import SellPreviewLayout from "./SellPreviewLayout";
 
-export default function SellLayout() {
+export default function SellLayout({
+    products, // INPUT: State de la lista de productos
+    onProductAdd, // OUTPUT: Action para seleccionar un producto (payload: product)
+}) {
 
     return (
        <div
@@ -18,7 +21,10 @@ export default function SellLayout() {
                     // flexGrow: 1
                 }}
             >
-                <ProductLayout />
+                <ProductLayout 
+                    products={products}
+                    onProductAdd={onProductAdd}
+                />
             </div>
             <div
                 style={{

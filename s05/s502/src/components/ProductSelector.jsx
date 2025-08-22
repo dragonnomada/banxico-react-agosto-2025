@@ -1,16 +1,23 @@
-import { useEffect } from "react"
-import { useState } from "react"
+// import { useEffect } from "react"
+// import { useState } from "react"
 
-import { fakePrincipalProducts } from "../mockup/products"
+// import { fakePrincipalProducts } from "../mockup/products"
 
-export default function ProductSelector() {
+// Responsabilidad:
+// 1. Mostrar una lista de productos que permitan seleccionar al producto
+// >>> 2. Obtener la lista de los productos inicial (vía API/Mockup)
+// --- 3. Buscar/filtrar la lista de productos
+export default function ProductSelector({
+    products, // INPUT: State de la lista productos
+    onProductAdd, // OUTPUT: Action para seleccionar un producto (payload: product)
+}) {
 
-    const [products, setProducts] = useState([])
+    // const [products, setProducts] = useState([])
 
-    useEffect(() => {
-        // TODO: Llamar al API de los productos principales
-        setProducts(fakePrincipalProducts)
-    }, [])
+    // useEffect(() => {
+    //     // TODO: Llamar al API de los productos principales
+    //     setProducts(fakePrincipalProducts)
+    // }, [])
 
     return (
         <div
@@ -30,17 +37,22 @@ export default function ProductSelector() {
                 }}
             >
                 <input 
+                    disabled
                     style={{
                         flexGrow: 1
                     }}
                     type="search" 
                     placeholder="Buscar producto..."
                 />
-                <button><span><i className="fas fa-search"></i></span></button>
+                <button
+                    disabled
+                >
+                    <span><i className="fas fa-search"></i></span>
+                </button>
             </div>
             <div>
                 {
-                    products.map(product => {
+                    (products || []).map(product => {
                         return (
                             <div
                                 key={product.id}
@@ -69,7 +81,12 @@ export default function ProductSelector() {
                                     <div>$ <span>{Number(product.price).toFixed(2)}</span></div>
                                 </div>
                                 <div>
-                                    <button>
+                                    <button
+                                        disabled={!onProductAdd}
+                                        onClick={() => {
+                                            if (onProductAdd) onProductAdd(product)
+                                        }}
+                                    >
                                         <span><i className="fas fa-plus"></i></span>
                                     </button>
                                 </div>

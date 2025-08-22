@@ -4,7 +4,10 @@ import MenuLayout from "./MenuLayout"
 import NavLayout from "./NavLayout"
 import SellLayout from "./SellLayout"
 
-export default function HomeLayout() {
+export default function HomeLayout({ 
+    products, // INPUT: State de la lista productos
+    onProductAdd, // OUTPUT: Action para seleccionar un producto (payload: product)
+}) {
 
     const [menuWidth, setMenuWidth] = useState(0)
 
@@ -58,7 +61,10 @@ export default function HomeLayout() {
                         padding: "1rem"
                     }}
                 >
-                    <SellLayout />
+                    <SellLayout 
+                        products={products}
+                        onProductAdd={onProductAdd}
+                    />
                 </div>
             </div>
         </div>

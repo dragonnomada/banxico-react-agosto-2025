@@ -1,7 +1,14 @@
+import UserInfo from "../components/UserInfo"
+
 export default function NavLayout() {
 
     return (
-        <span>nav</span>
+        <div
+            className="nav-container"
+        >
+            <div>LOGO</div>
+            <UserInfo />
+        </div>
     )
 
 }

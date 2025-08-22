@@ -1,3 +1,9 @@
+/*
+Responsabilidades:
+1. Definición del contexto (a partir de un estado inicial)
+2. Proveedor del contexto (a partir de estados)
+*/
+
 import { createContext } from "react"
 import { useState } from "react"
 import { useEffect } from "react"

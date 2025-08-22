@@ -65,7 +65,8 @@ export default function ProductSelector() {
                                     />
                                 </div>
                                 <div>
-                                    <span>{product.label}</span>
+                                    <div><span>{product.label}</span></div>
+                                    <div>$ <span>{Number(product.price).toFixed(2)}</span></div>
                                 </div>
                                 <div>
                                     <button>

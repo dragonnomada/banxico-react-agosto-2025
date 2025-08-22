@@ -10,18 +10,19 @@ export default function SellLayout() {
             flexGrow: 1,
             display: "flex",
             backgroundColor: "ghostwhite",
+            overflow: "hidden"
         }}
        >
             <div
                 style={{
-                    flexGrow: 1
+                    // flexGrow: 1
                 }}
             >
                 <ProductLayout />
             </div>
             <div
                 style={{
-                    flexGrow: 1
+                    flexGrow: 1,
                 }}
             >
                 <SellPreviewLayout />

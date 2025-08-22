@@ -1,0 +1,7 @@
+.product-activate {
+    filter: grayscale(40%);
+    cursor: pointer;
+}
+.product-activate:hover {
+    filter: grayscale(0%);
+}

@@ -1,8 +1,22 @@
 import { useState } from "react"
+import { useEffect } from "react"
 
-export default function ListProductTotal() {
+export default function ListProductTotal({
+    productsSelected, // INPUT: State de la lista de productos seleccionados
+}) {
 
-    const [productsSelected, setProductsSelected] = useState([])
+    const [total, setTotal] = useState(0)
+
+    useEffect(() => {
+        let total = 0
+
+        for (const product of productsSelected) {
+            total += product.price
+        }
+
+        setTotal(total)
+
+    }, [productsSelected])
 
     return (
         <div
@@ -41,7 +55,7 @@ export default function ListProductTotal() {
                         fontSize: "2rem",
                     }}
                 >
-                    <span>100.99</span>
+                    <span>{Number(total).toFixed(2)}</span>
                     <span>MNX</span>
                 </div>
             </div>

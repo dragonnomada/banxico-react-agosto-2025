@@ -6,6 +6,7 @@ import SellLayout from "./SellLayout"
 
 export default function HomeLayout({ 
     products, // INPUT: State de la lista productos
+    productsSelected, // INPUT: State de la lista productos seleccionados
     onProductAdd, // OUTPUT: Action para seleccionar un producto (payload: product)
 }) {
 
@@ -63,6 +64,7 @@ export default function HomeLayout({
                 >
                     <SellLayout 
                         products={products}
+                        productsSelected={productsSelected}
                         onProductAdd={onProductAdd}
                     />
                 </div>

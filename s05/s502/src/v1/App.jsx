@@ -6,6 +6,7 @@ import { fakePrincipalProducts } from "../mockup/products"
 export default function App() {
 
     const [products, setProducts] = useState([])
+    const [productsSelected, setProductsSelected] = useState([])
 
     useEffect(() => {
         // TODO: Obtenemos la lista de productos iniciales
@@ -14,14 +15,19 @@ export default function App() {
 
     return (
         <HomeLayout 
-            products={products}   
+            products={products}
+            productsSelected={productsSelected}
             onProductAdd={product => {
-                alert(`
-                Producto seleccionado:
+                // alert(`
+                // Producto seleccionado:
                 
-                ${product.label}
-                $ ${Number(product.price).toFixed(2)}
-                `)
+                // ${product.label}
+                // $ ${Number(product.price).toFixed(2)}
+                // `)
+                setProductsSelected([
+                    ...productsSelected,
+                    product
+                ])
             }} 
         />
     )

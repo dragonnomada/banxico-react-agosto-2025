@@ -3,6 +3,7 @@ import SellPreviewLayout from "./SellPreviewLayout";
 
 export default function SellLayout({
     products, // INPUT: State de la lista de productos
+    productsSelected, // INPUT: State de la lista de productos seleccionados
     onProductAdd, // OUTPUT: Action para seleccionar un producto (payload: product)
 }) {
 
@@ -31,7 +32,9 @@ export default function SellLayout({
                     flexGrow: 1,
                 }}
             >
-                <SellPreviewLayout />
+                <SellPreviewLayout 
+                    productsSelected={productsSelected}
+                />
             </div>
        </div>
     )

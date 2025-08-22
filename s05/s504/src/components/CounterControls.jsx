@@ -1,9 +1,17 @@
+import { useDispatch, useSelector } from "react-redux"
+import { counterSlice } from "../stores/counterSlice"
+
 export default function CounterControls() {
 
-    const count = 0
+    const count = useSelector(state => state.counter.count)
+    const dispatch = useDispatch()
 
-    const increment = () => {}
-    const decrement = () => {}
+    const increment = () => {
+        dispatch(counterSlice.actions.increment())
+    }
+    const decrement = () => {
+        dispatch(counterSlice.actions.decrement())
+    }
 
     return (
         <div>

@@ -1,23 +1,21 @@
 // import { useEffect } from "react"
 // import { useState } from "react"
 
+import { useContext } from "react"
+import { ProductContext } from "../v1/App"
+
 // import { fakePrincipalProducts } from "../mockup/products"
 
 // Responsabilidad:
 // 1. Mostrar una lista de productos que permitan seleccionar al producto
 // >>> 2. Obtener la lista de los productos inicial (vía API/Mockup)
 // --- 3. Buscar/filtrar la lista de productos
-export default function ProductSelector({
-    products, // INPUT: State de la lista productos
-    onProductAdd, // OUTPUT: Action para seleccionar un producto (payload: product)
-}) {
+export default function ProductSelector() {
 
-    // const [products, setProducts] = useState([])
+    // products, // INPUT: State de la lista productos
+    // onProductAdd, // OUTPUT: Action para seleccionar un producto (payload: product)
 
-    // useEffect(() => {
-    //     // TODO: Llamar al API de los productos principales
-    //     setProducts(fakePrincipalProducts)
-    // }, [])
+    const { products, onProductAdd } = useContext(ProductContext)
 
     return (
         <div

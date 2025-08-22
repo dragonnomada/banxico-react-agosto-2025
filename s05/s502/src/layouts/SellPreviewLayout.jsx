@@ -1,13 +1,9 @@
 import ListProductTotal from "../components/ListProductTotal"
 
-export default function SellPreviewLayout({
-    productsSelected, // INPUT: State de la lista de productos seleccionados
-}) {
+export default function SellPreviewLayout() {
 
     return (
-        <ListProductTotal 
-            productsSelected={productsSelected}
-        />
+        <ListProductTotal />
     )
 
 }

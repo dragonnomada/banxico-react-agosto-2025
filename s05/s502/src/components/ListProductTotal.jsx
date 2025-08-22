@@ -1,9 +1,10 @@
-import { useState } from "react"
-import { useEffect } from "react"
+import { useContext, useState, useEffect } from "react"
 
-export default function ListProductTotal({
-    productsSelected, // INPUT: State de la lista de productos seleccionados
-}) {
+import { ProductContext } from "../v1/App"
+
+export default function ListProductTotal() {
+
+    const { productsSelected } = useContext(ProductContext)
 
     const [total, setTotal] = useState(0)
 
@@ -61,10 +62,10 @@ export default function ListProductTotal({
             </div>
             <div>
                 {
-                    productsSelected.map(product => {
+                    productsSelected.map((product, index) => {
                         return (
                             <div
-                                key={product.id}
+                                key={`${product.id}-${index}`}
                                 style={{
                                     display: "flex",
                                     alignItems: "center",

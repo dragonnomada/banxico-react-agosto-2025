@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux"
+import FormUserAdd from "./FormUserAdd"
 
 export default function Home() {
 
@@ -12,7 +13,7 @@ export default function Home() {
         >
             <h1>Bienvenido {user.fullName}</h1>
             <div>
-                <pre><code>{JSON.stringify(user, null, 2)}</code></pre>
+                <FormUserAdd />
             </div>
         </div>
     )

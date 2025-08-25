@@ -1,9 +1,9 @@
-import { useContext } from "react"
-import { UserContext } from "../contexts/UserContext"
+import { useSelector } from "react-redux"
 
 export default function UserInfo() {
 
-    const { user, isSignedIn } = useContext(UserContext)
+    const user = useSelector(state => state.users.user)
+    const isSignedIn = useSelector(state => state.users.isSignedIn)
 
     if (!isSignedIn) return (
         <div className="user-info-error">

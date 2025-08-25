@@ -1,16 +1,15 @@
-import { ProductProvider } from "../contexts/ProductContext"
-import { UserProvider } from "../contexts/UserContext"
+// [PASO 3] - Exponer el proveedor del almacén de reductores
+import { Provider } from "react-redux"
 
 import Login from "../components/Login"
+import { store } from "../store/store"
 
 export default function App() {
 
     return (
-        <UserProvider>
-            <ProductProvider>
-                <Login />
-            </ProductProvider>
-        </UserProvider>
+        <Provider store={store}>
+            <Login />
+        </Provider>
     )
 
 }

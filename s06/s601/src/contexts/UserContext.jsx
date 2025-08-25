@@ -1,11 +1,15 @@
+// Responsabilidad:
+// Retener el estado del usuario y sus acciones
+// 1. Definir el contexto
+// 2. Definir el proveedor del contexto
 import { useState } from "react"
 import { createContext } from "react"
 
 const initialState = {
     user: {
-        fullName: "Paco Ortíz",
-        email: "paco.ortiz@empresa.com",
-        picture: "https://www.altoromexico.com/media/cmsimgnoticias/foto_noticia34765.jpg"
+        fullName: "...",
+        email: "...",
+        picture: "..."
     },
     isSignedIn: false,
     signIn: async (email, password) => { throw `No se pudo iniciar sesión (${email}) [fake]` }

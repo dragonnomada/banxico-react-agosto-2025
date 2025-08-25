@@ -1,8 +1,8 @@
 // import { useEffect } from "react"
 // import { useState } from "react"
 
-import { useContext } from "react"
-import { ProductContext } from "../contexts/ProductContext"
+import { useSelector, useDispatch } from "react-redux"
+import { productsActions } from "../store/productsSlice"
 
 // import { fakePrincipalProducts } from "../mockup/products"
 
@@ -12,10 +12,12 @@ import { ProductContext } from "../contexts/ProductContext"
 // --- 3. Buscar/filtrar la lista de productos
 export default function ProductSelector() {
 
-    // products, // INPUT: State de la lista productos
-    // onProductAdd, // OUTPUT: Action para seleccionar un producto (payload: product)
+    const productsSearch = useSelector(state => state.products.productsSearch)
+    const dispatch = useDispatch()
 
-    const { products, onProductAdd } = useContext(ProductContext)
+    const onProductAdd = product => {
+        dispatch(productsActions.selectProduct(product))
+    }
 
     return (
         <div
@@ -50,7 +52,7 @@ export default function ProductSelector() {
             </div>
             <div>
                 {
-                    (products || []).map(product => {
+                    (productsSearch || []).map(product => {
                         return (
                             <div
                                 key={product.id}
@@ -80,9 +82,9 @@ export default function ProductSelector() {
                                 </div>
                                 <div>
                                     <button
-                                        disabled={!onProductAdd}
+                                        // disabled={!onProductAdd}
                                         onClick={() => {
-                                            if (onProductAdd) onProductAdd(product)
+                                            onProductAdd(product)
                                         }}
                                     >
                                         <span><i className="fas fa-plus"></i></span>

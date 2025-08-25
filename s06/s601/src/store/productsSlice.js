@@ -1,13 +1,14 @@
 // [PASO 2] - Crear la lógica parcial del almacén de reductores (el reductor de productos)
 
 import { createSlice } from "@reduxjs/toolkit"
+import { fakePrincipalProducts } from "../mockup/products"
 
 export const productsSlice = createSlice({
     name: "products",
     initialState: {
         error: null,
         isLoading: false,
-        productsSearch: [],
+        productsSearch: fakePrincipalProducts,
         productsSelected: [],
         total: 0,
     },
@@ -36,6 +37,19 @@ export const productsSlice = createSlice({
                 state.total += product.price
             }
         },
+        selectProduct(state, action) {
+            const productSelected = action.payload
+            state.productsSelected = [
+                ...state.productsSelected,
+                productSelected
+            ]
+            // Calcular el nuevo estado del total 
+            // (precio de todos los productos seleccionados)
+            state.total = 0
+            for (const product of state.productsSelected) {
+                state.total += product.price
+            }
+        },
         clearProductsSelected(state, action) {
             state.productsSelected = []
             state.total = 0
@@ -46,6 +60,7 @@ export const productsSlice = createSlice({
 export const {
     clearError,
     clearProductsSelected,
+    selectProduct,
     startLoading,
     stopLoading,
     updateError,

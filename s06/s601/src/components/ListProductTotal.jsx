@@ -1,23 +1,9 @@
-import { useContext, useState, useEffect } from "react"
-
-import { ProductContext } from "../contexts/ProductContext"
+import { useSelector } from "react-redux"
 
 export default function ListProductTotal() {
 
-    const { productsSelected } = useContext(ProductContext)
-
-    const [total, setTotal] = useState(0)
-
-    useEffect(() => {
-        let total = 0
-
-        for (const product of productsSelected) {
-            total += product.price
-        }
-
-        setTotal(total)
-
-    }, [productsSelected])
+    const productsSelected = useSelector(state => state.products.productsSelected)
+    const total = useSelector(state => state.products.total)
 
     return (
         <div
@@ -75,15 +61,15 @@ export default function ListProductTotal() {
                                 }}
                             >
                                 <div>
-                                    <img 
+                                    <img
                                         className="product-activate"
                                         style={{
                                             width: "2rem",
                                             height: "2rem",
                                             borderRadius: "100%",
                                         }}
-                                        src={product.picture} 
-                                        alt={product.label} 
+                                        src={product.picture}
+                                        alt={product.label}
                                     />
                                 </div>
                                 <div>

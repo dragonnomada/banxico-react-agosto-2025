@@ -47,9 +47,12 @@ export default function CalculadoraIVA() {
                 <input
                     type="number"
                     placeholder="Subtotal"
-                    value={state.subtotal.toFixed(2)}
+                    value={state.subtotal}
                     onChange={event => {
                         dispatch(["UPDATE_SUBTOTAL", Number(event.target.value)])
+                    }}
+                    onBlur={event => {
+                        dispatch(["UPDATE_SUBTOTAL", Number(event.target.value).toFixed(2)])
                     }}
                 />
             </div>
@@ -57,9 +60,12 @@ export default function CalculadoraIVA() {
                 <input
                     type="number"
                     placeholder="IVA"
-                    value={state.iva.toFixed(2)}
+                    value={state.iva}
                     onChange={event => {
                         dispatch(["UPDATE_IVA", Number(event.target.value)])
+                    }}
+                    onBlur={event => {
+                        dispatch(["UPDATE_IVA", Number(event.target.value).toFixed(2)])
                     }}
                 />
             </div>
@@ -68,9 +74,12 @@ export default function CalculadoraIVA() {
                 <input
                     type="number"
                     placeholder="Total"
-                    value={state.total.toFixed(2)}
+                    value={state.total}
                     onChange={event => {
                         dispatch(["UPDATE_TOTAL", Number(event.target.value)])
+                    }}
+                    onBlur={event => {
+                        dispatch(["UPDATE_TOTAL", Number(event.target.value).toFixed(2)])
                     }}
                 />
             </div>

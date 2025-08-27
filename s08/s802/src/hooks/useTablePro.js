@@ -9,22 +9,32 @@ export function useTablePro() {
     const [columns, setColumns] = useState([])
     const [columnsMap, setColumnsMap] = useState({})
     const [rows, setRows] = useState([])
+    const [savedRows, setSavedRows] = useState([])
 
     return {
         tableRef: table,
         columns,
         columnsMap,
         rows,
+        savedRows,
         updateModel(columns, columnsMap, rows = []) {
             setColumns(columns)
             setColumnsMap(columnsMap)
             setRows(rows)
+            setSavedRows(rows)
         },
         updateColumns(columns, columnsMap) {
             setColumns(columns)
         },
         updateColumnsMap(columnsMap) {
             setColumnsMap(columnsMap)
+        },
+        saveRows(rows) {
+            setSavedRows(rows)
+            setRows(rows)
+        },
+        resetRows() {
+            setRows(savedRows)
         },
         updateRows(rows) {
             setRows(rows)

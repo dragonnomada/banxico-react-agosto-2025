@@ -1,27 +1,27 @@
+import { useState } from "react"
 import Table from "./Table"
+import { useEffect } from "react"
+import { userAllApi } from "../api/userAllApi"
 
 export default function TableUser() {
 
+    const [users, setUsers] = useState([])
+
+    useEffect(() => {
+        userAllApi("").then(users => {
+            console.log(users)
+            setUsers(users)
+        })
+    }, [])
+
     return (
-        <Table 
-            columns={["A", "B", "C"]}
-            rows={[
-                {
-                    "A": 1,
-                    "B": 2,
-                    "C": 3
-                },
-                {
-                    "A": 4,
-                    "B": 5,
-                    "C": 6
-                },
-                {
-                    "A": "Hola",
-                    "B": "Mundo",
-                    "C": "???"
-                },
-            ]}
+        <Table
+            columns={["fullName", "email"]}
+            columnMap={{
+                fullName: "Nombre Completo",
+                email: "Correo"
+            }}
+            rows={users}
         />
     )
 

@@ -1,12 +1,12 @@
-export default function Table({ columns, rows }) {
+export default function Table({ columns, columnMap, rows }) {
 
     return (
-        <table>
+        <table border="1px">
             <thead>
                 <tr>
                     {
                         columns.map(column => {
-                            return <th key={column}>{column}</th>
+                            return <th key={column}>{columnMap ? columnMap[column] : column}</th>
                         })
                     }
                 </tr>

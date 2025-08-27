@@ -12,6 +12,15 @@ export default function TableSearchPro({ tableModel }) {
         }
 
         const rowsFiltered = tableModel.savedRows.filter(row => {
+            // let buffer = ""
+            // for (const fieldName in row) {
+            //     // if (!searchFilds.includes(fieldName)) continue
+            //     const value = row[fieldName]
+            //     const text = `${value}`
+            //     buffer += text + " | "
+            // }
+            // return buffer.toLowerCase().search(searchText.toLowerCase()) >= 0
+
             const text = Object.values(row).join(" | ").toLowerCase()
             return text.search(searchText.toLowerCase()) >= 0
         })

@@ -15,6 +15,7 @@ export default function TableUser() {
         }, [])
         userAllApi().then(users => {
             table.saveRows(users)
+            console.log({ users })
         })
     }, [])
 

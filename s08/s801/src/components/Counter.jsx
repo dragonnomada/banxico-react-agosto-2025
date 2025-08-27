@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useState } from "react"
-import Gallery from "./Gallery"
+// import Gallery from "./Gallery"
 
 // STATEFULL COMPONENT
 export default function Counter() {

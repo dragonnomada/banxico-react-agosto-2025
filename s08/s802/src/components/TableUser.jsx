@@ -1,8 +1,7 @@
-import { useState } from "react"
-import Table from "./Table"
 import { useEffect } from "react"
 import { userAllApi } from "../api/userAllApi"
-import TablePro, { useTablePro } from "./TablePro"
+import TablePro from "./TablePro"
+import { useTablePro } from "../hooks/useTablePro"
 
 export default function TableUser() {
 

@@ -2,27 +2,65 @@ import { useState } from "react"
 import Table from "./Table"
 import { useEffect } from "react"
 import { userAllApi } from "../api/userAllApi"
+import TablePro, { useTablePro } from "./TablePro"
 
 export default function TableUser() {
 
-    const [users, setUsers] = useState([])
+    const table = useTablePro()
 
     useEffect(() => {
-        userAllApi("").then(users => {
-            console.log(users)
-            setUsers(users)
+        table.updateModel(["fullName", "email"], {
+            fullName: "Nombre Completo",
+            email: "Correo"
+        }, [])
+        userAllApi().then(users => {
+            table.updateRows(users)
         })
     }, [])
 
     return (
-        <Table
-            columns={["fullName", "email"]}
-            columnMap={{
-                fullName: "Nombre Completo",
-                email: "Correo"
-            }}
-            rows={users}
-        />
+        <div>
+            <TablePro tableModel={table} />
+            <button
+                onClick={() => {
+                    table.addRow({
+                        fullName: Math.random().toString(),
+                        email: Math.random().toString() + "@ejemplo.com"
+                    })
+                }}
+            >
+                Crear fila
+            </button>
+            <button
+                onClick={() => {
+                    table.popRow()
+                }}
+            >
+                Eliminar última fila
+            </button>
+            <button
+                onClick={() => {
+                    table.shiftRow()
+                }}
+            >
+                Eliminar primera fila
+            </button>
+            <button
+                onClick={async () => {
+                    const users = await userAllApi()
+                    table.updateRows(users)
+                }}
+            >
+                Get users
+            </button>
+            <button
+                onClick={() => {
+                    table.removeAllRows()
+                }}
+            >
+                Vaciar tabla
+            </button>
+        </div>
     )
 
 }

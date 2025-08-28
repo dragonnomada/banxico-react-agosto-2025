@@ -1,0 +1,67 @@
+html,
+body {
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.main-layout {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-layout {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-bottom: 1px solid gainsboro;
+    gap: 1rem;
+}
+
+.nav-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.home-layout {
+    flex-grow: 1;
+    padding: 1rem;
+    display: flex;
+}
+
+.home-layout > *:nth-child(1) {
+    width: 200px;
+    background-color: gainsboro;
+    padding: 1rem;
+}
+
+.home-layout > *:nth-child(2) {
+    flex-grow: 1;
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.menu-container a {
+    cursor: pointer;
+    border: 2px solid gold;
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: gray;
+    color: whitesmoke;
+}
+
+.menu-container a:hover {
+    background-color: darkgray;
+    color: white;
+}

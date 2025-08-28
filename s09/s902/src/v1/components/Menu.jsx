@@ -10,6 +10,8 @@ import { useEffect } from "react"
 
 export default function Menu() {
 
+    const [userMenu, setUserMenu] = useState([])
+
     const [path, setPath] = useState(null)
 
     const component = useMemo(() => {
@@ -28,9 +30,39 @@ export default function Menu() {
         }, 0)
     }, [])
 
+    useEffect(() => {
+        fetch("https://geocarta.org/api/curso/banxico/user/menu").then(async response => {
+            if (response.ok) {
+                const { menu } = await response.json()
+                setUserMenu(menu)
+            }
+        })
+    }, [])
+
     return (
         <div className="menu-container">
-            <a
+            {
+                userMenu.length === 0 ? (
+                    <span><i className="fas fa-spinner fa-spin"></i></span>
+                ) : null
+            }
+            {
+                userMenu.map(menu => {
+                    return (
+                        <a
+                            key={menu.path}
+                            href={`#/${menu.path}`}
+                            onClick={event => {
+                                event.preventDefault()
+                                setPath(menu.path)
+                            }}
+                        >
+                            {menu.label}
+                        </a>
+                    )
+                })
+            }
+            {/* <a
                 href="#"
                 onClick={event => {
                     event.preventDefault()
@@ -74,14 +106,15 @@ export default function Menu() {
                 }}
             >
                 Pantalla 4
-            </a>
+            </a> */}
             {
                 path ? (
                     createPortal(
                         component,
-                        document.getElementById("panel")
+                        document.getElementById("panel"),
+                        path
                     )
-                ) : null
+                ) : component
             }
         </div>
     )

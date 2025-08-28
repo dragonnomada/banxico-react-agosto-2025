@@ -12,7 +12,7 @@ export default function Pantalla2() {
         return () => {
             clearTimeout(id)
         }
-    }, [])
+    }, [count])
 
     return (
         <div>

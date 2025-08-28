@@ -1,22 +1,40 @@
 import { useReducer, useState } from "react"
 import TextInput from "./TextInput"
 
-export function useForm(fields) {
+export function useForm(fields, validator) {
 
-    const [state, dispatch] = useReducer((state, [field, value]) => {
+    const [data, updateData] = useReducer((data, [field, value]) => {
         return {
-            ...state,
+            ...data,
             [field]: value
+        }
+    }, {})
+    const [errors, updateError] = useReducer((errors, [field, error]) => {
+        return {
+            ...errors,
+            [field]: error ? error : undefined
         }
     }, {})
 
     const controls = fields.map(field => {
 
-        field.value = state[field.name]
+        field.value = data[field.name]
+        field.error = errors[field.name]
 
         field.updateValue = (value) => {
             // TODO: Validar el campo
-            dispatch([field.name, value])
+            if (validator) {
+                updateError([field.name, null])
+                try {
+                    validator(field.name, value)
+                } catch (error) {
+                    updateError([field.name, `${error}`])
+                } finally {
+                    updateData([field.name, value])
+                }
+            } else {
+                updateData([field.name, value])
+            }
         }
         field.onEnter = () => {
             // ...
@@ -29,13 +47,16 @@ export function useForm(fields) {
 
     })
 
-    return [controls, state]
+    return [controls, {
+        data,
+        errors
+    }]
 
 }
 
 export default function FormUser() {
 
-    const [controls, data] = useForm([
+    const [controls, { data, errors }] = useForm([
         {
             name: "nombre",
             type: "text",
@@ -56,7 +77,11 @@ export default function FormUser() {
             type: "email",
             label: "Correo"
         },
-    ])
+    ], (name, value) => {
+        if (name === "correo") {
+            if (value && value.search("@") < 0) throw `El correo no es válido`
+        }
+    })
 
     return (
         <div
@@ -68,7 +93,7 @@ export default function FormUser() {
                 gap: "1rem"
             }}
         >
-            <pre><code>{JSON.stringify({ data }, null, 2)}</code></pre>
+            <pre><code>{JSON.stringify({ data, errors }, null, 2)}</code></pre>
             {
                 controls.map(control => (
                     <TextInput

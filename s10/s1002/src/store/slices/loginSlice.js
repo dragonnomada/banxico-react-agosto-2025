@@ -13,9 +13,9 @@ export const loginSlice = createSlice({
     reducers: {
 
         successLogin(state) {
-            state.isLogin = true
-            state.error = null
             state.isLoading = false
+            state.error = null
+            state.isLogin = true
         },
         failLogin(state, { payload: error }) {
             state.isLogin = false

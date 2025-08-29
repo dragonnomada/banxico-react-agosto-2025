@@ -1,4 +1,24 @@
-import { useMemo, useState } from "react" 
+import { useCallback, useMemo, useState } from "react"
+
+export function Tarjeta({ children, bgColor, textColor }) {
+    return (
+        <div className={`flex gap-2 p-2 ${bgColor || "bg-gray-100"} ${textColor || "text-black"} justify-between`}>
+            {children}
+        </div>
+    )
+}
+
+// HOC
+export function VisibleTarjeta({ visible, ...props }) {
+    // Lógica superior
+    if (!visible) return null
+
+    return (
+        <Tarjeta 
+            {...props}
+        />
+    )
+}
 
 export default function MiniDashboard() {
 
@@ -16,15 +36,17 @@ export default function MiniDashboard() {
     const [subtotalIva, setSubtotalIva] = useState(0.16 * 100)
     const [descuento, setDescuento] = useState(20)
 
-    const updateSubtotal = subtotal => {
+    // Este callback sólo se construye cuando cambian las dependencias
+    const updateSubtotal = useCallback(subtotal => {
         setSubtotal(subtotal)
 
         const subtotalIva = subtotal * iva
         const total = subtotal + subtotalIva + descuento
         setSubtotalIva(subtotalIva)
         setTotal(total)
-    }
+    }, [iva, descuento])
 
+    // Este callback siempre se construye
     const updateIva = iva => {
         setIva(iva)
 
@@ -132,6 +154,19 @@ export default function MiniDashboard() {
                     Actualizar iva
                 </button>
             </div>
+            <Tarjeta
+                bgColor={"bg-red-500"}
+                textColor={"text-white"}
+            >
+                hola
+            </Tarjeta>
+            <VisibleTarjeta
+                visible={true}
+                bgColor={"bg-blue-500"}
+                textColor={"text-white"}
+            >
+                hola
+            </VisibleTarjeta>
         </div>
     )
 

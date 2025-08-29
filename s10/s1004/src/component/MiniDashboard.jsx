@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react" 
 
 export default function MiniDashboard() {
 
@@ -14,7 +14,7 @@ export default function MiniDashboard() {
     const [subtotal, setSubtotal] = useState(100)
     const [iva, setIva] = useState(0.16)
     const [subtotalIva, setSubtotalIva] = useState(0.16 * 100)
-    const [descuento, setDescuento] = useState(0)
+    const [descuento, setDescuento] = useState(20)
 
     const updateSubtotal = subtotal => {
         setSubtotal(subtotal)
@@ -34,75 +34,85 @@ export default function MiniDashboard() {
         setTotal(total)
     }
 
+    const tarjetaTotal = useMemo(() => {
+        return (
+            <div className="flex gap-2 font-bold justify-between">
+                <span><i className={icons[Math.floor(Math.random() * icons.length)]}></i></span>
+                <span>Total</span>
+                <span>$ {total.toFixed(2)}</span>
+            </div>
+        )
+    }, [total])
+
+    const tarjetaSubtotal = useMemo(() => {
+        return (
+            <div className="flex gap-2 justify-between">
+                <span><i className={icons[Math.floor(Math.random() * icons.length)]}></i></span>
+                <span>Subtotal</span>
+                <span>$ {subtotal.toFixed(2)}</span>
+            </div>
+        )
+    }, [subtotal])
+
+    const tarjetaIVA = useMemo(() => {
+        return (
+            <div className="flex gap-2 justify-between">
+                <span><i className={icons[Math.floor(Math.random() * icons.length)]}></i></span>
+                <span>IVA (%)</span>
+                <span>{(iva * 100).toFixed(2)}%</span>
+            </div>
+        )
+    }, [iva])
+
+    const tarjetaSubtotalIVA = useMemo(() => {
+        return (
+            <div className="flex gap-2 justify-between">
+                <span><i className={icons[Math.floor(Math.random() * icons.length)]}></i></span>
+                <span>Subtotal IVA</span>
+                <span>$ {subtotalIva.toFixed(2)}</span>
+            </div>
+        )
+    }, [subtotalIva])
+
+    const tarjetaDescuento = useMemo(() => {
+        return (
+            <div className="flex gap-2 justify-between">
+                <span><i className={icons[Math.floor(Math.random() * icons.length)]}></i></span>
+                <span>Descuento</span>
+                <span>$ {descuento.toFixed(2)}</span>
+            </div>
+        )
+    }, [descuento])
+
     return (
         <div>
             <div>
                 <div className="flex">
                     <div className="w-50 flex-grow bg-red-500 text-white p-4">
-                        <div className="flex gap-2 justify-between">
-                            <span><i className={icons[Math.floor(Math.random() * icons.length)]}></i></span>
-                            <span>Subtotal</span>
-                            <span>$ {subtotal.toFixed(2)}</span>
-                        </div>
+                        {tarjetaSubtotal}
                         <hr />
-                        <div className="flex gap-2 font-bold justify-between">
-                            <span><i className={icons[Math.floor(Math.random() * icons.length)]}></i></span>
-                            <span>Total</span>
-                            <span>$ {total.toFixed(2)}</span>
-                        </div>
+                        {tarjetaTotal}
                     </div>
                     <div className="w-50 flex-grow bg-blue-500 text-white p-4">
-                        <div className="flex gap-2 justify-between">
-                            <span><i className={icons[Math.floor(Math.random() * icons.length)]}></i></span>
-                            <span>Subtotal</span>
-                            <span>$ {subtotal.toFixed(2)}</span>
-                        </div>
+                        {tarjetaSubtotal}
                         <hr />
-                        <div className="flex gap-2 justify-between">
-                            <span><i className={icons[Math.floor(Math.random() * icons.length)]}></i></span>
-                            <span>IVA (%)</span>
-                            <span>{(iva * 100).toFixed(2)}%</span>
-                        </div>
+                        {tarjetaIVA}
                         <hr />
-                        <div className="flex gap-2 justify-between">
-                            <span><i className={icons[Math.floor(Math.random() * icons.length)]}></i></span>
-                            <span>Subtotal IVA</span>
-                            <span>$ {subtotalIva.toFixed(2)}</span>
-                        </div>
+                        {tarjetaSubtotalIVA}
                     </div>
                 </div>
                 <div className="flex">
                     <div className="w-50 flex-grow bg-yellow-300 p-4">
-                        <div className="flex gap-2 justify-between">
-                            <span><i className={icons[Math.floor(Math.random() * icons.length)]}></i></span>
-                            <span>Subtotal</span>
-                            <span>$ {subtotal.toFixed(2)}</span>
-                        </div>
+                        {tarjetaSubtotal}
                         <hr />
-                        <div className="flex gap-2 justify-between">
-                            <span><i className={icons[Math.floor(Math.random() * icons.length)]}></i></span>
-                            <span>Subtotal IVA</span>
-                            <span>$ {subtotalIva.toFixed(2)}</span>
-                        </div>
+                        {tarjetaSubtotalIVA}
                         <hr />
-                        <div className="flex gap-2 justify-between">
-                            <span><i className={icons[Math.floor(Math.random() * icons.length)]}></i></span>
-                            <span>Descuento</span>
-                            <span>$ {descuento.toFixed(2)}</span>
-                        </div>
+                        {tarjetaDescuento}
                     </div>
                     <div className="w-50 flex-grow bg-green-400 p-4">
-                        <div className="flex gap-2 justify-between">
-                            <span><i className={icons[Math.floor(Math.random() * icons.length)]}></i></span>
-                            <span>Total</span>
-                            <span>$ {total.toFixed(2)}</span>
-                        </div>
+                        {tarjetaTotal}
                         <hr />
-                        <div className="flex gap-2 justify-between">
-                            <span><i className={icons[Math.floor(Math.random() * icons.length)]}></i></span>
-                            <span>IVA (%)</span>
-                            <span>{(iva * 100).toFixed(2)}%</span>
-                        </div>
+                        {tarjetaIVA}
                     </div>
                 </div>
             </div>

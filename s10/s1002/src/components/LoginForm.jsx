@@ -1,20 +1,30 @@
 "use client"
 import { loginActions } from "@/store/slices/loginSlice"
+import { signIn } from "@/store/thunks/singIn"
+import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 export default function LoginForm() {
 
+    const router = useRouter()
+
+    const isLogin = useSelector(state => state.login.isLogin)
     const isLoading = useSelector(state => state.login.isLoading)
     const error = useSelector(state => state.login.error)
     const dispatch = useDispatch()
 
+    const [correo, setCorreo] = useState("")
+    const [frase, setFrase] = useState("")
+
+    useEffect(() => {
+        if (isLogin) {
+            router.replace("/home")
+        }
+    }, [isLogin])
+
     const onLogin = () => {
-        dispatch(loginActions.startLogin())
-        setTimeout(() => {
-            // console.log("SUCCESS")
-            // dispatch(loginActions.successLogin())
-            dispatch(loginActions.failLogin("Error desconocido"))
-        }, 5_000)
+        dispatch(signIn(correo, frase))
     }
 
     return (
@@ -36,6 +46,10 @@ export default function LoginForm() {
                 disabled={isLoading}
                 type="text" 
                 placeholder="Correo"
+                value={correo}
+                onChange={event => {
+                    setCorreo(event.target.value)
+                }}
             />
             <input 
                 className={
@@ -44,6 +58,10 @@ export default function LoginForm() {
                 disabled={isLoading}
                 type="password" 
                 placeholder="Contraseña"
+                value={frase}
+                onChange={event => {
+                    setFrase(event.target.value)
+                }}
             />
             <button
                 className={

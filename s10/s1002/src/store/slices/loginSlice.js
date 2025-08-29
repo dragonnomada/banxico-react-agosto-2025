@@ -5,6 +5,7 @@ export const loginSlice = createSlice({
     name: "login",
 
     initialState: {
+        user: null, // User
         isLogin: false, // boolean
         error: null, // string | null
         isLoading: false, // boolean
@@ -12,10 +13,11 @@ export const loginSlice = createSlice({
 
     reducers: {
 
-        successLogin(state) {
-            state.isLoading = false
-            state.error = null
+        successLogin(state, { payload: user }) {
+            state.user = user
             state.isLogin = true
+            state.error = null
+            state.isLoading = false
         },
         failLogin(state, { payload: error }) {
             state.isLogin = false

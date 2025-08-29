@@ -1,77 +1,58 @@
 "use client"
+import getAcquisitions from "@/store/thunks/getAcquisitions"
 import { Chart } from "chart.js/auto"
 import { useEffect, useRef } from "react"
-import { useSelector } from "react-redux"
-
-const dataApi = [
-    { fecha: "2025-01-01", concepto: "Tintorería", monto: 2500 },
-    { fecha: "2025-01-01", concepto: "Transporte", monto: 4500 },
-    { fecha: "2025-01-02", concepto: "Comida", monto: 1500 },
-    { fecha: "2025-01-02", concepto: "Transporte", monto: 2600 },
-    { fecha: "2025-01-03", concepto: "Comida", monto: 1300 },
-    { fecha: "2025-01-03", concepto: "Transporte", monto: 4200 },
-    { fecha: "2025-01-03", concepto: "Personal Externo", monto: 15_600 },
-]
-
-const data = Object.entries(dataApi.reduce((reporte, { fecha, monto }) => {
-
-    let total = reporte[fecha] || 0
-    total += monto
-    reporte[fecha] = total
-
-    return reporte
-
-}, {})).map(([key, value]) => ({
-    fecha: key,
-    total: value
-}))
-
-console.log(data)
+import { useDispatch, useSelector } from "react-redux"
 
 export default function HomePage() {
 
     const user = useSelector(state => state.login.user)
+    const acquisitions = useSelector(state => state.datasets.acquisitions)
+    const reportAcquisitions = useSelector(state => state.datasets.reportAcquisitions)
+    const dispatch = useDispatch()
 
     const canvasRef = useRef()
     const chart = useRef()
 
-    useEffect(() => {
+    const updateReport = () => {
+        if (chart.current) {
+            chart.current.destroy()
+        }
         chart.current = new Chart(canvasRef.current, {
             type: "bar",
             data: {
-                labels: data.map(row => row.fecha),
+                labels: reportAcquisitions.map(row => row.fecha),
                 datasets: [
                     {
                         label: "Acquisitions by year",
-                        data: data.map(row => row.total)
+                        data: reportAcquisitions.map(row => row.total)
                     }
                 ]
             }
         })
+    }
 
+    useEffect(() => {
+        dispatch(getAcquisitions())
         return () => {
-            chart.current.destroy()
+            if (chart.current) {
+                chart.current.destroy()
+            }
         }
     }, [])
+
+    useEffect(() => {
+        if (reportAcquisitions) {
+            updateReport()
+        }
+    }, [reportAcquisitions])
 
     return (
         <div>
             <h1>Bienvenido {user.fullName}</h1>
             <button
                 onClick={() => {
-                    chart.current.destroy()
-                    chart.current = new Chart(canvasRef.current, {
-                        type: "bar",
-                        data: {
-                            labels: data.map(row => row.year),
-                            datasets: [
-                                {
-                                    label: "Acquisitions by year",
-                                    data: data.map(row => row.count)
-                                }
-                            ]
-                        }
-                    })
+                    dispatch(getAcquisitions())
                 }}
             >
                 actualizar
@@ -88,7 +69,7 @@ export default function HomePage() {
                     </thead>
                     <tbody>
                         {
-                            dataApi.map(({ fecha, concepto, monto }, index) => {
+                            acquisitions.map(({ fecha, concepto, monto }, index) => {
                                 return (
                                     <tr key={index}>
                                         <td>{fecha}</td>

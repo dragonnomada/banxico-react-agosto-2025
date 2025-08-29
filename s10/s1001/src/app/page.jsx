@@ -9,7 +9,7 @@ export default function AppPage() {
 
     return (
         <div>
-            <h1>Bienvenido 🤗</h1>
+            <h1>Bienvenido 🤗 <span><i className="fas fa-home"></i></span></h1>
             <div>
                 <button
                     onClick={() => {

@@ -16,6 +16,13 @@ export default function AboutPage() {
             >
                 regresar
             </button>
+            <button
+                onClick={() => {
+                    router.push("/about/more-info")
+                }}
+            >
+                más información
+            </button>
         </div>
     )
 

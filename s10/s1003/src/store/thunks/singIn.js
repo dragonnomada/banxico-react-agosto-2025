@@ -11,7 +11,7 @@ export function signIn(email, password) {
     return async (dispatch, getState) => {
 
         dispatch(loginActions.startLogin())
-        
+
         // Definimos la operación y consumimos otras acciones
         const response = await fetch(`https://geocarta.org/api/curso/banxico/signIn`, {
             method: "post",
@@ -26,6 +26,8 @@ export function signIn(email, password) {
 
         if (response.ok) {
             const { user } = await response.json()
+            // TODO: Encriptar la cadena JSON
+            localStorage.setItem("user", JSON.stringify(user))
             dispatch(loginActions.successLogin(user))
         } else {
             const error = await response.text()

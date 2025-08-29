@@ -12,13 +12,13 @@ export default function HomeLayout({ children }) {
     
     useEffect(() => {
         if (!isLogin) {
-            router.replace("/login")   
+            router.replace("/")   
         }
     }, [isLogin])
 
     if (!isLogin) return (
         <div className="w-screen h-screen flex justify-center items-center bg-gray-800 text-white">
-            <span>Acceso no permitido, redirigiendo...</span>
+            <span>Verificando la sesión...</span>
         </div>
     )
 
